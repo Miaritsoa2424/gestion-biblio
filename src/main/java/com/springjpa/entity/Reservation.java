@@ -23,7 +23,7 @@ public class Reservation {
     private LocalDateTime dateDeReservation;
     
     @ManyToOne
-    @JoinColumn(name = "id_admin", nullable = false)
+    @JoinColumn(name = "id_admin", nullable = true)
     private Admin admin;
     
     @ManyToOne
@@ -31,8 +31,8 @@ public class Reservation {
     private StatutReservation statut;
     
     @ManyToOne
-    @JoinColumn(name = "id_exemplaire", nullable = false)
-    private Exemplaire exemplaire;
+    @JoinColumn(name = "id_livre", nullable = false)
+    private Livre livre;
     
     @ManyToOne
     @JoinColumn(name = "id_adherant", nullable = false)
@@ -42,13 +42,13 @@ public class Reservation {
     public Reservation() {}
     
     public Reservation(Integer idReservation, LocalDateTime dateDeReservation, 
-                       Admin admin, StatutReservation statut, Exemplaire exemplaire, 
+                       Admin admin, StatutReservation statut, Livre livre, 
                        Adherant adherant) {
         this.idReservation = idReservation;
         this.dateDeReservation = dateDeReservation;
         this.admin = admin;
         this.statut = statut;
-        this.exemplaire = exemplaire;
+        this.livre = livre;
         this.adherant = adherant;
     }
     
@@ -85,12 +85,12 @@ public class Reservation {
         this.statut = statut;
     }
     
-    public Exemplaire getExemplaire() {
-        return exemplaire;
+    public Livre getLivre() {
+        return livre;
     }
     
-    public void setExemplaire(Exemplaire exemplaire) {
-        this.exemplaire = exemplaire;
+    public void setLivre(Livre livre) {
+        this.livre = livre;
     }
     
     public Adherant getAdherant() {

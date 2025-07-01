@@ -165,3 +165,11 @@ CREATE TABLE quota_type_pret(
    FOREIGN KEY(id_profil) REFERENCES profil(id_profil),
    FOREIGN KEY(id_type_pret) REFERENCES type_pret(id_type_pret)
 );
+
+select *
+   from (select id_livre
+         from exemplaire
+         where id_livre = 1) as l
+   join pret
+   on pret.id_livre = l.id_livre;
+

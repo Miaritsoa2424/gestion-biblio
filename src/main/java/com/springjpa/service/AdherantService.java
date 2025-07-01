@@ -59,4 +59,21 @@ public class AdherantService {
     public boolean isPenalise(Integer adherantId) {
         return penaliteService.isPenalise(adherantId);
     }
+
+    public Adherant getAdherantByNumero(int numero_adherant){
+        List<Adherant> adherants = findAll();
+        for (Adherant adherant : adherants) {
+            if (adherant.getNumeroAdherant() == numero_adherant) {
+                return adherant; // Retourne l'adhérent correspondant au numéro
+            }
+        }
+        return null; // Aucun adhérent trouvé avec ce numéro
+    }
+
+    public boolean peutReserver(Integer id_adherant) {
+           if (isInscri(id_adherant) && !isPenalise(id_adherant)) {
+                return true; // L'adhérent est inscrit et n'est pas pénalisé
+            }
+            return false; // L'adhérent est soit non inscrit, soit pénalisé
+    }
 }
