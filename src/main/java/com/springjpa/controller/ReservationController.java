@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,14 +55,15 @@ public class ReservationController {
     @PostMapping("/reserveBook")
     public String reserverLivre(@RequestParam("livre") int id_livre,
                                 @RequestParam("date") LocalDate date,
+                                HttpSession session,
                                 RedirectAttributes redirectAttributes) {
         try {
-            Integer id_adherant = 1;
+            Adherant adherant = (Adherant) session.getAttribute("adherant");
             LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(date);
-            reservationService.reserverUnLivre(id_adherant, id_livre, dateTime);
+            reservationService.reserverUnLivre(adherant.getIdAdherant(), id_livre, dateTime);
             redirectAttributes.addFlashAttribute("success", "Reservation reussi, passez au bibliotheque le ".concat(date.toString()));
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("success", "Echec lors de la reservation du livre");
+            redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre");
         }
         return "redirect:/livre/detail?id=" + id_livre;
     }

@@ -31,4 +31,14 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>authenticationFilter</filter-name>
+        <filter-class>com.springjpa.filter.AuthenticationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/reservation/reserveBook</url-pattern>
+    </filter-mapping>
+
 </web-app>
