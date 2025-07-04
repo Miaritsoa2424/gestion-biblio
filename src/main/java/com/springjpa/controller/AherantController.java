@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.springjpa.service.AdherantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 import com.springjpa.entity.Adherant;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
