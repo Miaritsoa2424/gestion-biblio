@@ -32,6 +32,9 @@ public class AherantController {
         
         if (adherant != null) {
             session.setAttribute("adherant", adherant);
+            if (adherantService.isAdmin(adherant)) {
+                session.setAttribute("admin", adherant.getIdAdherant());
+            }
             return "redirect:/livre/"; 
         } else {
             model.addAttribute("error", "Numéro d'adhérent ou mot de passe incorrect");
