@@ -19,9 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@RequestMapping("/reservation")
 @Controller
 public class ReservationController {
 
@@ -51,15 +53,15 @@ public class ReservationController {
     public String reserverLivre(@RequestParam("livre") int id_livre,
                                 @RequestParam("date") LocalDate date,
                                 RedirectAttributes redirectAttributes) {
-        // try {
+        try {
             Integer id_adherant = 1;
             LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(date);
             reservationService.reserverUnLivre(id_adherant, id_livre, dateTime);
             redirectAttributes.addFlashAttribute("success", "Reservation reussi, passez au bibliotheque le ".concat(date.toString()));
-        // } catch (Exception e) {
-        //     redirectAttributes.addFlashAttribute("success", "Echec lors de la reservation du livre");
-        // }
-        return "redirect:/reservation";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("success", "Echec lors de la reservation du livre");
+        }
+        return "redirect:/livre/detail?id=" + id_livre;
     }
 
 }

@@ -1,4 +1,3 @@
-
 package com.springjpa.entity;
 
 import java.util.Set;
@@ -6,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -49,7 +49,7 @@ public class Livre {
     @JoinColumn(name = "id_auteur", nullable = false)
     private Auteur auteur;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "categorie_livre",
         joinColumns = @JoinColumn(name = "id_livre"),
