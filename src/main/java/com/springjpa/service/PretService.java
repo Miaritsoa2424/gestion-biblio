@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.springjpa.entity.FinPret;
 import com.springjpa.entity.Pret;
 import com.springjpa.entity.Retour;
+import com.springjpa.repository.FinPretRepository;
 import com.springjpa.repository.PretRepository;
 import com.springjpa.repository.RetourRepository;
 
@@ -21,6 +22,8 @@ public class PretService {
     private PretRepository pretRepository;
     @Autowired
     private RetourRepository retourRepository;
+    @Autowired
+    private FinPretRepository finPretRepository;
 
     public Pret findById(Integer id){
         return pretRepository.findById(id).get();
@@ -35,7 +38,7 @@ public class PretService {
     }
 
     public FinPret findFinPret(Pret pret){
-        return pretRepository.findByIdPret(pret.getIdPret());
+        return finPretRepository.findByIdPret(pret.getIdPret());
     }
 
     public Retour findRetourPret(Pret pret){

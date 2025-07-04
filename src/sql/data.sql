@@ -71,3 +71,7 @@ INSERT INTO categorie_livre (id_livre, id_categorie) VALUES (2, 2);
 -- Table quota_type_pret
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (1, 1, 3);
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (2, 2, 5);
+
+-- Exemple de données pour la table retour
+INSERT INTO retour (date_retour, id_pret) VALUES
+('2024-06-04 10:30:00', 1);

@@ -166,6 +166,15 @@ CREATE TABLE quota_type_pret(
    FOREIGN KEY(id_type_pret) REFERENCES type_pret(id_type_pret)
 );
 
+CREATE TABLE retour(
+   id_retour INT,
+   date_retour DATETIME,
+   id_pret INT NOT NULL,
+   PRIMARY KEY(id_retour),
+   FOREIGN KEY(id_pret) REFERENCES pret(id_pret)
+);
+
+
 select *
    from (select id_livre
          from exemplaire
