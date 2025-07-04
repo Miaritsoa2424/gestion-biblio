@@ -8,5 +8,7 @@
 <body>
     <h1>Que voulez-vous faire ?</h1>
     <a href="preter">Prêter un Livre</a>
+    <a href="reservation">Reserver un Livre</a>
+
 </body>
 </html>
