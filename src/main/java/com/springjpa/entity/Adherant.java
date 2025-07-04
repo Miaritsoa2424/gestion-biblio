@@ -1,7 +1,11 @@
 package com.springjpa.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -11,23 +15,27 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "adherant")
 public class Adherant {
-    
+        
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_adherant")
     private Integer idAdherant;
-
-    @Column(name = "numero_adherant", length = 4, unique = true, nullable = false)
-    private int numeroAdherant;
     
     @Column(name = "nom_adherant", length = 50)
     private String nomAdherant;
+
+    @Column(name = "numero_adherant")
+    private int numero_adherant;
     
     @Column(name = "prenom_adherant", length = 50)
     private String prenomAdherant;
     
     @Column(name = "password", length = 50)
     private String password;
-    
+
+    @Column(name = "date_naissance")
+    private LocalDate dateNaissance;
+
     @ManyToOne
     @JoinColumn(name = "id_profil", nullable = false)
     private Profil profil;
@@ -35,10 +43,9 @@ public class Adherant {
     // Constructeurs
     public Adherant() {}
     
-    public Adherant(Integer idAdherant, int numero_adherant, String nomAdherant, String prenomAdherant, 
+    public Adherant(Integer idAdherant, String nomAdherant, String prenomAdherant, 
                     String password, Profil profil) {
         this.idAdherant = idAdherant;
-        this.numeroAdherant = numero_adherant;
         this.nomAdherant = nomAdherant;
         this.prenomAdherant = prenomAdherant;
         this.password = password;
@@ -85,10 +92,20 @@ public class Adherant {
     public void setProfil(Profil profil) {
         this.profil = profil;
     }
-    public int getNumeroAdherant() {
-        return numeroAdherant;
+
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
     }
-    public void setNumeroAdherant(int numeroAdherant) {
-        this.numeroAdherant = numeroAdherant;
+
+    public void setDateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public int getNumeroAdherant() {
+        return numero_adherant;
+    }
+
+    public void setNumeroAdherant(int numero_adherant) {
+        this.numero_adherant = numero_adherant;
     }
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 
 import java.time.LocalDateTime;
@@ -15,14 +17,16 @@ import java.time.LocalDateTime;
 public class Inscription {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_inscription")
     private Integer idInscription;
     
-    @Column(name = "date_inscription")
-    private LocalDateTime dateInscription;
-    
-    @Column(name = "etat")
-    private Boolean etat;
+    @Column(name = "date_debut")
+    private LocalDateTime dateDebut;
+
+    @Column(name = "date_fin")
+    private LocalDateTime dateFin;
+
     
     @ManyToOne
     @JoinColumn(name = "id_adherant", nullable = false)
@@ -31,11 +35,11 @@ public class Inscription {
     // Constructeurs
     public Inscription() {}
     
-    public Inscription(Integer idInscription, LocalDateTime dateInscription, 
-                       Boolean etat, Adherant adherant) {
+    public Inscription(Integer idInscription, LocalDateTime dateDebut,          LocalDateTime dateFin, 
+                       Adherant adherant) {
         this.idInscription = idInscription;
-        this.dateInscription = dateInscription;
-        this.etat = etat;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.adherant = adherant;
     }
     
@@ -47,22 +51,23 @@ public class Inscription {
     public void setIdInscription(Integer idInscription) {
         this.idInscription = idInscription;
     }
-    
-    public LocalDateTime getDateInscription() {
-        return dateInscription;
+
+    public LocalDateTime getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDateTime dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDateTime getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDateTime dateFin) {
+        this.dateFin = dateFin;
     }
     
-    public void setDateInscription(LocalDateTime dateInscription) {
-        this.dateInscription = dateInscription;
-    }
-    
-    public Boolean getEtat() {
-        return etat;
-    }
-    
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
-    }
     
     public Adherant getAdherant() {
         return adherant;

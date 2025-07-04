@@ -1,3 +1,4 @@
+
 package com.springjpa.entity;
 
 import java.util.Set;
@@ -12,6 +13,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 
 
@@ -20,6 +23,7 @@ import jakarta.persistence.Table;
 public class Livre {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_livre")
     private Integer idLivre;
     
@@ -40,6 +44,9 @@ public class Livre {
     
     @Column(name = "nb_page")
     private Integer nbPage;
+
+    @Column(name = "age_requis")
+    private Integer ageRequis;
     
     @ManyToOne
     @JoinColumn(name = "id_editeur", nullable = false)
@@ -49,7 +56,7 @@ public class Livre {
     @JoinColumn(name = "id_auteur", nullable = false)
     private Auteur auteur;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+   @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "categorie_livre",
         joinColumns = @JoinColumn(name = "id_livre"),
@@ -153,5 +160,13 @@ public class Livre {
     
     public void setCategories(Set<Categorie> categories) {
         this.categories = categories;
+    }
+
+    public Integer getAgeRequis() {
+        return ageRequis;
+    }
+
+    public void setAgeRequis(Integer ageRequis) {
+        this.ageRequis = ageRequis;
     }
 }
