@@ -13,6 +13,8 @@ INSERT INTO categorie (id_categorie, nom_categorie) VALUES (2, 'Essai');
 -- Table profil
 INSERT INTO profil (id_profil, nom_profil, quota_pret, quota_reservation) VALUES (1, 'Etudiant', 5, 2);
 INSERT INTO profil (id_profil, nom_profil, quota_pret, quota_reservation) VALUES (2, 'Professeur', 10, 5);
+INSERT INTO profil (id_profil, nom_profil, quota_pret, quota_reservation) VALUES (3, 'Admin', 100, 100);
+
 
 -- Table admin
 INSERT INTO admin (id_admin, nom_admin, prenom_admin, password) VALUES (1, 'Martin', 'Paul', 'admin123');

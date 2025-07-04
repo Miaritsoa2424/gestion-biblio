@@ -84,4 +84,10 @@ public class AdherantService {
             }
             return false; // L'adhérent est soit non inscrit, soit pénalisé
     }
+    public boolean isAdmin(Adherant adherant) {
+        if (adherant.getProfil().getNomProfil().equals("Admin")) {
+            return true; // L'adhérent est un administrateur
+        }
+        return false; // L'adhérent n'est pas un administrateur
+    }
 }
