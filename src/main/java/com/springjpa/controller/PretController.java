@@ -3,17 +3,20 @@ package com.springjpa.controller;
 import com.springjpa.entity.Adherant;
 import com.springjpa.entity.FinPret;
 import com.springjpa.entity.Pret;
+import com.springjpa.entity.Retour;
 import com.springjpa.service.AdherantService;
 import com.springjpa.service.FinPretService;
 import com.springjpa.service.LivreService;
 import com.springjpa.service.PenaliteService;
 import com.springjpa.service.PretService;
 import com.springjpa.service.QuotaTypePretService;
+import com.springjpa.service.RetourService;
 import com.springjpa.service.TypePretService;
 import com.springjpa.service.UtilService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +49,9 @@ public class PretController {
 
     @Autowired
     private FinPretService finPretService;
+
+    @Autowired
+    private RetourService retourService;
 
     @GetMapping("/")
     public String index() {
@@ -119,4 +125,54 @@ public class PretController {
         return "redirect:/preter";
     }
 
+
+    @GetMapping("/pret")
+    public String listPret(
+            @RequestParam(required = false) Integer numeroAdherent,
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String titre,
+            @RequestParam(required = false) String date,
+            Model model) {
+        
+        List<Pret> prets;
+        if (numeroAdherent != null) {
+            prets = pretService.findByNumeroAdherent(numeroAdherent);
+        } else if (nom != null && !nom.isEmpty()) {
+            prets = pretService.findByNomAdherant(nom);
+        } else if (titre != null && !titre.isEmpty()) {
+            prets = pretService.findByTitreLivre(titre);
+        } else if (date != null && !date.isEmpty()) {
+            LocalDate searchDate = LocalDate.parse(date);
+            prets = pretService.findByDate(searchDate);
+        } else {
+            prets = pretService.findAll();
+        }
+        
+        model.addAttribute("prets", prets);
+        return "list-pret";
+    }
+
+    @PostMapping("/detail-pret")
+    public String retournerPret(
+            @RequestParam("id") Integer idPret,
+            @RequestParam("dateRetour") LocalDate dateRetour,
+            RedirectAttributes redirectAttributes) {
+        
+        try {
+            Pret pret = pretService.findById(idPret);
+            if (pret != null && retourService.findRetourByIdPret(idPret).equals(null)) {
+                Retour retour = new Retour();
+                retour.setPret(pret);
+                retour.setDateRetour(UtilService.toDateTimeWithCurrentTime(dateRetour));
+                retourService.save(retour);
+                redirectAttributes.addFlashAttribute("success", "Retour enregistré avec succès !");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Prêt non trouvé.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'enregistrement du retour.");
+        }
+        
+        return "redirect:/pret";
+    }
 }

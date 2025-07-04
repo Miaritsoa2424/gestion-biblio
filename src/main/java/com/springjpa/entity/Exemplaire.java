@@ -50,12 +50,4 @@ public class Exemplaire {
     public void setLivre(Livre livre) {
         this.livre = livre;
     }
-
-    // public boolean isDispo() {
-    //     return dispo;
-    // }
-
-    // public void setDispo(boolean dispo) {
-    //     this.dispo = dispo;
-    // }
 }

@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.springjpa.entity.Adherant;
 import com.springjpa.entity.Reservation;
 import com.springjpa.repository.ReservationRepository;
 
@@ -42,11 +41,4 @@ public class ReservationService {
         save(resa);
     }
 
-    // public boolean livreEstReserver(LocalDateTime dateDeb,LocalDateTime dateFin,Integer id_exemplaire){
-    //     List<Reservation> resa = reservationRepository.findReservationsValidesParExemplaireEtDate(dateDeb, dateFin, id_exemplaire);
-    //     if (resa.isEmpty()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
 }
