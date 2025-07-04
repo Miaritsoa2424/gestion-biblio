@@ -70,6 +70,14 @@ public class AdherantService {
         return null; // Aucun adhérent trouvé avec ce numéro
     }
 
+    public Adherant authenticate(int numeroAdherant, String motDePasse) {
+        Adherant adherant = getAdherantByNumero(numeroAdherant);
+        if (adherant != null && adherant.getPassword().equals(motDePasse)) {
+            return adherant;
+        }
+        return null;
+    }
+
     public boolean peutReserver(Integer id_adherant) {
            if (isInscri(id_adherant) && !isPenalise(id_adherant)) {
                 return true; // L'adhérent est inscrit et n'est pas pénalisé
