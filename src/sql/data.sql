@@ -44,9 +44,13 @@ INSERT INTO livre (id_livre, titre, isbn, langue, annee_publication, synopsis, n
 INSERT INTO adherant (id_adherant,numero_adherant, nom_adherant, prenom_adherant, password, id_profil) VALUES (1,001, 'Dupont', 'Jean', 'pass123', 1);
 INSERT INTO adherant (id_adherant,,numero_adherant, nom_adherant, prenom_adherant, password, id_profil) VALUES (2,002, 'Lefevre', 'Marie', 'pass456', 2);
 
--- Table inscription
-INSERT INTO inscription (id_inscription, date_inscription, etat, id_adherant) VALUES (1, '2024-01-01 10:00:00', TRUE, 1);
-INSERT INTO inscription (id_inscription, date_inscription, etat, id_adherant) VALUES (2, '2024-02-01 11:00:00', TRUE, 2);
+-- INSCRIPTION (dates en 2025)
+INSERT INTO inscription (id_inscription, date_debut, date_fin, id_adherant)
+VALUES (1, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 1);
+INSERT INTO inscription (id_inscription, date_debut, date_fin, id_adherant)
+VALUES (2, '2025-01-01 00:00:00', '2025-12-31 23:59:59', 2);
+
+
 
 -- Table exemplaire
 INSERT INTO exemplaire (id_exemplaire, id_livre) VALUES (1, 1);

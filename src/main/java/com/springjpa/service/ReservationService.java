@@ -41,4 +41,12 @@ public class ReservationService {
         Reservation resa = new Reservation(id_livre, dateTime, null, statutReservationService.findById(1), livreService.findById(id_livre), adherantService.findById(id_adherant));
         save(resa);
     }
+
+    // public boolean livreEstReserver(LocalDateTime dateDeb,LocalDateTime dateFin,Integer id_exemplaire){
+    //     List<Reservation> resa = reservationRepository.findReservationsValidesParExemplaireEtDate(dateDeb, dateFin, id_exemplaire);
+    //     if (resa.isEmpty()) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

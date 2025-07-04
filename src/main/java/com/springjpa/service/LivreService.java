@@ -36,6 +36,9 @@ public class LivreService {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private ReservationService reservationService;
+
     public Livre findById(Integer id){
         return livreRepository.findById(id).get();
     }
@@ -52,7 +55,7 @@ public class LivreService {
         return exemplaires;
     }
 
-    public boolean preterLivre(int id_livre, Adherant adherant, LocalDateTime dateDebut, LocalDateTime dateFin) {
+    public Pret preterLivre(int id_livre, Adherant adherant, LocalDateTime dateDebut, LocalDateTime dateFin) {
         List<Exemplaire> exemplaires = exemplaireRepository.findByIdLivre(id_livre);
     
         for (Exemplaire exemplaire : exemplaires) {
@@ -63,13 +66,11 @@ public class LivreService {
                 pret.setDateDebut(dateDebut);
                 pret.setTypePret(typePretService.findById(1));
                 pret.setAdmin(adminService.findById(1));
-
-                pretService.save(pret);
-                return true; // Prêt effectué
+                return pret; // Prêt effectué
             }
         }
     
-        return false; // Aucun exemplaire disponible
+        return null; // Aucun exemplaire disponible
     }
     
 }
