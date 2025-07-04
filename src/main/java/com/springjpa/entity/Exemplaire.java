@@ -21,17 +21,17 @@ public class Exemplaire {
     @JoinColumn(name = "id_livre", nullable = false)
     private Livre livre;
 
-    @Column(name = "dispo")
-    private boolean dispo;
+    // @Column(name = "dispo")
+    // private boolean dispo;
     
 
     public Exemplaire() {
     }
 
-    public Exemplaire(Integer idExemplaire, Livre livre, boolean dispo) {
+    public Exemplaire(Integer idExemplaire, Livre livre) {
         this.idExemplaire = idExemplaire;
         this.livre = livre;
-        this.dispo = dispo;
+        // this.dispo = dispo;
     }
 
     // Getters et Setters
@@ -51,11 +51,11 @@ public class Exemplaire {
         this.livre = livre;
     }
 
-    public boolean isDispo() {
-        return dispo;
-    }
+    // public boolean isDispo() {
+    //     return dispo;
+    // }
 
-    public void setDispo(boolean dispo) {
-        this.dispo = dispo;
-    }
+    // public void setDispo(boolean dispo) {
+    //     this.dispo = dispo;
+    // }
 }

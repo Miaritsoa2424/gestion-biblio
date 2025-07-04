@@ -42,7 +42,6 @@ public class ExemplaireService {
 
     public Boolean isExemplaireDisponible(Integer id_exemplaire, LocalDateTime dateDebut, LocalDateTime dateFin) {
         List<Pret> prets = findByIdExemplaire(id_exemplaire);
-    
         for (Pret pret : prets) {
             LocalDateTime dateDebutPret = pret.getDateDebut();
             LocalDateTime dateFinPretOuRetour = null;
@@ -50,23 +49,28 @@ public class ExemplaireService {
             Retour retour = pretService.findRetourPret(pret);
             if (retour != null) {
                 dateFinPretOuRetour = retour.getDateRetour();
+
             } else {
-                FinPret finpret = pretService.findFinPret(pret);
-                if (finpret != null) {
-                    dateFinPretOuRetour = finpret.getDateFin();
-                }
+                return false;
             }
     
             if (dateFinPretOuRetour == null) continue;
     
-            if (PretService.datesSeChevauchent(dateDebut, dateFin, dateDebutPret, dateFinPretOuRetour)) {
+            if (UtilService.periodesSeChevauchent(dateDebut, dateFin, dateDebutPret, dateFinPretOuRetour)) {
                 return false;
             }
         }
-    
         return true;
     }
     
+   public List<Exemplaire> getExemplaireByIdLivre(int id_livre){
+    return exemplaireRepository.findByIdLivre(id_livre);
+   }
 
-   
+
+//    public boolean isExemplaireDisponible(int id_exemplaire, Date dateDebut, Date dateFin) {
+//         LocalDateTime dateDebutLocal = dateDebut.toLocalDate().atStartOfDay();
+//         LocalDateTime dateFinLocal = dateFin.toLocalDate().atStartOfDay();
+//         return isExemplaireDisponible(id_exemplaire, dateDebutLocal, dateFinLocal);
+//     }
 }
