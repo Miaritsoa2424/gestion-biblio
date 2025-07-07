@@ -150,7 +150,7 @@
                 </div>
                 <div class="reservation-form">
                     <h4>Réserver ce livre</h4>
-                    <form action="/biblio-spring-1.0/reservation/reserveBook" method="POST">
+                    <form action="reserveBook" method="POST">
                         <input type="hidden" name="livre" value="${livre.getIdLivre()}">
                         <div class="form-group">
                             <label for="dateReservation">Date de réservation souhaitée:</label>
