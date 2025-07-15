@@ -64,7 +64,7 @@
 </head>
 <body>
     <div class="login">
-        <form action="loginAdmin" method="POST">
+        <form action="login" method="POST">
             <fieldset>
                 <h1>Connexion en tant qu'admin</h1>
 
