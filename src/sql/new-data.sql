@@ -1,3 +1,4 @@
+
 -- AUTEUR
 INSERT INTO auteur (id_auteur, nom_auteur, prenom_auteur) VALUES (1, 'Hugo', 'Victor');
 INSERT INTO auteur (id_auteur, nom_auteur, prenom_auteur) VALUES (2, 'Zola', 'Emile');
@@ -29,6 +30,14 @@ INSERT INTO type_pret (id_type_pret, type) VALUES (1, 'A domicile');
 -- DUREE_PRET
 INSERT INTO duree_pret (id_duree_pret, duree, id_profil) VALUES (1, 30, 1);
 INSERT INTO duree_pret (id_duree_pret, duree, id_profil) VALUES (2, 15, 2);
+
+-- Insertion pour le profil 1
+INSERT INTO quota_prolongement (quota, id_profil) 
+VALUES (5, 1);
+
+-- Insertion pour le profil 2
+INSERT INTO quota_prolongement (quota, id_profil) 
+VALUES (2, 2);
 
 -- STATUT_RESERVATION
 INSERT INTO statut_reservation (id_statut_reservation, nom_statut) VALUES (1, 'En attente');
@@ -101,16 +110,3 @@ INSERT INTO categorie_livre (id_livre, id_categorie) VALUES (5, 2);
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (1, 1, 5);
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (2, 1, 2);
 
--- RESTRICTION_CATEGORIE (aucune restriction pour l'exemple)
--- (si tu veux tester des restrictions, ajoute des lignes ici)
-
-SELECT COUNT(*) FROM pret p WHERE p.id_adherant = 4 AND p.id_type_pret = 1 AND p.id_pret NOT IN (SELECT r.id_pret FROM retour r);
-SELECT * FROM pret p WHERE p.id_exemplaire = 3;
-
-
--- Tu peux faire cette requête SQL pour voir quels exemplaires sont en cours :
-SELECT p.*
-FROM pret p
-LEFT JOIN retour r ON p.id_pret = r.id_pret
-LEFT JOIN fin_pret f ON p.id_pret = f.id_pret
-WHERE r.id_retour IS NULL AND f.id_fin_pret IS NULL;

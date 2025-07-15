@@ -59,6 +59,11 @@
                         <td>${pret.getDateDebut()}</td>
                         <td>
                             <button class="btn btn-sm btn-warning" onclick="openRetourModal(${pret.getIdPret()})">Retour</button>
+                            <form action="/biblio-spring-1.0/prolongement/demander-prolongement" method="post">
+                                <input type="hidden" name="idPret" value="${pret.getIdPret()}" />
+                                <input type="hidden" name="idAdherant" value="${pret.getAdherant().getIdAdherant()}" />
+                                <button type="submit" class="btn btn-sm btn-warning">Demander un prolongement</button>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>
