@@ -113,15 +113,16 @@ public class ProlongementService {
                 throw new Exception("Le prolongement est déjà dans l'état : " + idEtatActuel + ". L'action de validation est impossible.");
             }
     
+            
+            FinPret finPret = pretService.findFinPret(prolongement.getPret());
+            pretService.savePretProlonge(prolongement.getPret().getAdherant().getIdAdherant(), prolongement.getPret().getExemplaire(),
+            finPret.getDateFin(), prolongement.getDateFin(), 1);
+            
             ProlongementStatut prolongementStatut = new ProlongementStatut();
             prolongementStatut.setDateChangement(LocalDateTime.now());
             prolongementStatut.setProlongement(prolongement);
             prolongementStatut.setStatutProlongement(statutProlongementService.findById(2)); 
             prolongementStatutService.save(prolongementStatut);
-
-            FinPret finPret = pretService.findFinPret(prolongement.getPret());
-            pretService.savePretProlonge(prolongement.getPret().getAdherant().getIdAdherant(), prolongement.getPret().getExemplaire(),
-                                             finPret.getDateFin(), prolongement.getDateFin(), 1);
             
         } catch (Exception e) {
             throw e;

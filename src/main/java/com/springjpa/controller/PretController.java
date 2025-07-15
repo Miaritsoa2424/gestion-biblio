@@ -78,29 +78,26 @@ public class PretController {
         LocalDateTime dateTimeFin = UtilService.toDateTimeWithCurrentTime(dateFinLocal);
         Adherant adherant = adherantService.getAdherantByNumero(adherantId);
 
-
         boolean depasseQuota = quotaTypePretService.adherantDepasseQuota(
-            adherant.getIdAdherant(),
-            adherant.getProfil().getIdProfil(),
-            typePret
-        ); 
+                adherant.getIdAdherant(),
+                adherant.getProfil().getIdProfil(),
+                typePret);
         Boolean peutPreter = livreService.peutPreterLivre(adherant, livreService.findById(id_livre));
         Pret pretEffectue = livreService.preterLivre(id_livre, adherant, dateTimeDebut, dateTimeFin);
 
         if (depasseQuota) {
             redirectAttributes.addFlashAttribute("error", "Quota de prêt dépassé.");
-            return "redirect:/preter";            
-        }
-        else if (!peutPreter) {
-            redirectAttributes.addFlashAttribute("error", "Vous ne pouvez pas emprunter ce livre a cause de votre age ou du type de votre profil");
-            return "redirect:/preter";   
+            return "redirect:/preter";
+        } else if (!peutPreter) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Vous ne pouvez pas emprunter ce livre a cause de votre age ou du type de votre profil");
+            return "redirect:/preter";
         }
 
         else if (adherant.equals(null)) {
             redirectAttributes.addFlashAttribute("error", "Adhérant inexistant.");
             return "redirect:/preter";
-        }
-        else if (penaliteService.isPenalise(dateTimeDebut, adherant.getIdAdherant()) == true) {
+        } else if (penaliteService.isPenalise(dateTimeDebut, adherant.getIdAdherant()) == true) {
             redirectAttributes.addFlashAttribute("error", "Adhérant penalise.");
             return "redirect:/preter";
         }
@@ -125,7 +122,6 @@ public class PretController {
         return "redirect:/preter";
     }
 
-
     @GetMapping("/pret")
     public String listPret(
             @RequestParam(required = false) Integer numeroAdherent,
@@ -133,7 +129,7 @@ public class PretController {
             @RequestParam(required = false) String titre,
             @RequestParam(required = false) String date,
             Model model) {
-        
+
         List<Pret> prets;
         if (numeroAdherent != null) {
             prets = pretService.findByNumeroAdherent(numeroAdherent);
@@ -147,7 +143,7 @@ public class PretController {
         } else {
             prets = pretService.findAll();
         }
-        
+
         model.addAttribute("prets", prets);
         return "list-pret";
     }
@@ -157,22 +153,14 @@ public class PretController {
             @RequestParam("id") Integer idPret,
             @RequestParam("dateRetour") LocalDate dateRetour,
             RedirectAttributes redirectAttributes) {
-        
         try {
-            Pret pret = pretService.findById(idPret);
-            if (pret != null && retourService.findRetourByIdPret(idPret) == null) {
-                Retour retour = new Retour();
-                retour.setPret(pret);
-                retour.setDateRetour(UtilService.toDateTimeWithCurrentTime(dateRetour));
-                retourService.save(retour);
-                redirectAttributes.addFlashAttribute("success", "Retour enregistré avec succès !");
-            } else {
-                redirectAttributes.addFlashAttribute("error", "Prêt non trouvé.");
-            }
+            retourService.retournerPret(idPret, dateRetour);
+            redirectAttributes.addFlashAttribute("success", "Retour enregistré avec succès !");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'enregistrement du retour:"+e.getMessage());
+            redirectAttributes.addFlashAttribute("error",
+                    "Erreur lors de l'enregistrement du retour:" + e.getMessage());
         }
-        
         return "redirect:/pret";
     }
+
 }
