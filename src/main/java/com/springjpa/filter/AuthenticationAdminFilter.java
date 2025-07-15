@@ -4,7 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 
-public class AuthenticationFilter implements Filter {
+public class AuthenticationAdminFilter implements Filter {
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -13,8 +13,8 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
 
-        boolean isLoggedIn = (session != null && session.getAttribute("adherant") != null);
-        String loginURI = httpRequest.getContextPath() + "/adherants/login";
+        boolean isLoggedIn = (session != null && session.getAttribute("admin") != null);
+        String loginURI = httpRequest.getContextPath() + "/Admin/login";
 
         if (isLoggedIn) {
             chain.doFilter(request, response);

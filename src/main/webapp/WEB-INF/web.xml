@@ -32,13 +32,24 @@
     </servlet-mapping>
 
     <filter>
-        <filter-name>authenticationFilter</filter-name>
-        <filter-class>com.springjpa.filter.AuthenticationFilter</filter-class>
+        <filter-name>AuthenticationAdherantFilter</filter-name>
+        <filter-class>com.springjpa.filter.AuthenticationAdherantFilter</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>authenticationFilter</filter-name>
+        <filter-name>AuthenticationAdherantFilter</filter-name>
         <url-pattern>/reservation/reserveBook</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>AuthenticationAdminFilter</filter-name>
+        <filter-class>com.springjpa.filter.AuthenticationAdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthenticationAdminFilter</filter-name>
+        <url-pattern>/preter</url-pattern>
     </filter-mapping>
 
 </web-app>
