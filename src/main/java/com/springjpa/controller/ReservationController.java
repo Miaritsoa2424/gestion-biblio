@@ -2,6 +2,7 @@ package com.springjpa.controller;
 
 import com.springjpa.entity.Adherant;
 import com.springjpa.entity.Livre;
+import com.springjpa.entity.Reservation;
 import com.springjpa.service.LivreService;
 import com.springjpa.service.ReservationService;
 import com.springjpa.service.UtilService;
@@ -36,7 +37,7 @@ public class ReservationController {
         List<Livre> livres = livreService.findAll();
 
         model.addAttribute("books", livres);
-        return "formReservation"; // Redirection vers la page d'accueil
+        return "formReservation"; 
     }
 
     @PostMapping("/reserveBook")
@@ -44,15 +45,18 @@ public class ReservationController {
                                 @RequestParam("date") LocalDate date,
                                 HttpSession session,
                                 RedirectAttributes redirectAttributes) {
-        // try {
             Adherant adherant = (Adherant) session.getAttribute("adherant");
             LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(date);
             reservationService.reserverUnLivre(adherant.getIdAdherant(), id_livre, dateTime);
             redirectAttributes.addFlashAttribute("success", "Reservation reussi, passez au bibliotheque le ".concat(date.toString()));
-        // } catch (Exception e) {
-        //     redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre:"+);
-        // }
         return "redirect:/livre/detail?id=" + id_livre;
+    }
+
+    @GetMapping("/list-reservation")
+    public String listerResa(Model model){
+        List<Reservation> reservations = reservationService.findAll();
+        model.addAttribute("reservations", reservations);
+        return "reservation-list";
     }
 
 }

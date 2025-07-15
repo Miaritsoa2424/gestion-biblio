@@ -42,6 +42,11 @@
             <a href="prolongement/prolongement-list" class="btn btn-secondary btn-lg">
                 <i class="bi bi-card-list"></i> Liste des demandes de prolongement
             </a>
+
+
+            <a href="reservation/list-reservation" class="btn btn-secondary btn-lg">
+                <i class="bi bi-card-list"></i> Liste les reservations
+            </a>
         </div>
     </div>
 
