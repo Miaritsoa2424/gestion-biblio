@@ -32,16 +32,10 @@ public class LivreService {
     private ExemplaireService exemplaireService;
 
     @Autowired
-    private PretService pretService;
-
-    @Autowired
     private TypePretService typePretService;
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private ReservationService reservationService;
 
     @Autowired
     private RestrictionCategorieRepository restrictionCategorieRepository;

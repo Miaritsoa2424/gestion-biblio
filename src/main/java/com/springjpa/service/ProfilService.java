@@ -37,4 +37,9 @@ public class ProfilService {
             .findFirst()
             .orElse(null);
     }
+
+    
+    public int getDureePret(int idProfil) {
+        return profilRepository.findDureePretByIdProfil(idProfil);
+    }
 }

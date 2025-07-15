@@ -1,7 +1,5 @@
 
 package com.springjpa.entity;
-import java.util.Set;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +28,6 @@ public class FinPret {
     @JoinColumn(name = "id_pret", nullable = false)
     private Pret pret;
     
-    // Constructeurs
     public FinPret() {}
     
     public FinPret(Integer idFinPret, LocalDateTime dateFin, Pret pret) {
@@ -39,7 +36,6 @@ public class FinPret {
         this.pret = pret;
     }
     
-    // Getters et Setters
     public Integer getIdFinPret() {
         return idFinPret;
     }

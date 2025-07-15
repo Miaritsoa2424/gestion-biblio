@@ -24,4 +24,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
             @Param("fin") LocalDateTime fin,
             @Param("idExemplaire") Integer idExemplaire);
 
+@Query("SELECT r FROM Reservation r WHERE r.dateDeReservation BETWEEN :dateDebut AND :dateFin")
+List<Reservation> findByDateDeReservationBetween(@Param("dateDebut") LocalDateTime dateDebut, @Param("dateFin") LocalDateTime dateFin);
+
 }

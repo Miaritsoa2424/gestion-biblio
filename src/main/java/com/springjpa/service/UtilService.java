@@ -14,4 +14,8 @@ public class UtilService {
                                                 LocalDateTime debut2, LocalDateTime fin2) {
         return !debut1.isAfter(fin2) && !debut2.isAfter(fin1);
     }
+
+    public static LocalDateTime ajouterJours(LocalDateTime date, int nbJours) {
+        return date.plusDays(nbJours);
+    }
 }

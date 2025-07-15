@@ -1,11 +1,7 @@
 package com.springjpa.controller;
 
 import com.springjpa.entity.Adherant;
-import com.springjpa.entity.Exemplaire;
 import com.springjpa.entity.Livre;
-import com.springjpa.entity.Reservation;
-import com.springjpa.service.AdherantService;
-import com.springjpa.service.ExemplaireService;
 import com.springjpa.service.LivreService;
 import com.springjpa.service.ReservationService;
 import com.springjpa.service.UtilService;
@@ -29,20 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/reservation")
 @Controller
 public class ReservationController {
-
-    @Autowired
-    private ExemplaireService exemplaireService;
-
-    @Autowired
-    private AdherantService adherantService;
-
     @Autowired
     private LivreService livreService;
 
     @Autowired
     private ReservationService reservationService;
-
-    private UtilService utilService;
 
     @GetMapping("/reservation")
     public String formResa(Model model) {
@@ -57,14 +44,14 @@ public class ReservationController {
                                 @RequestParam("date") LocalDate date,
                                 HttpSession session,
                                 RedirectAttributes redirectAttributes) {
-        try {
+        // try {
             Adherant adherant = (Adherant) session.getAttribute("adherant");
             LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(date);
             reservationService.reserverUnLivre(adherant.getIdAdherant(), id_livre, dateTime);
             redirectAttributes.addFlashAttribute("success", "Reservation reussi, passez au bibliotheque le ".concat(date.toString()));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre");
-        }
+        // } catch (Exception e) {
+        //     redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre:"+);
+        // }
         return "redirect:/livre/detail?id=" + id_livre;
     }
 

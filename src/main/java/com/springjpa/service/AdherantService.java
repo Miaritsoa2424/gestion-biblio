@@ -21,7 +21,8 @@ public class AdherantService {
 
 
     public Adherant findById(Integer id) {
-        return adherantRepository.findById(id).get();
+        return adherantRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Adhérant avec l'ID " + id + " introuvable."));
     }
 
     public List<Adherant> findAll() {
@@ -32,14 +33,11 @@ public class AdherantService {
         adherantRepository.save(adherant);
     }
 
-    public Adherant getAdherantByNumero(int numero_adherant) {
-        List<Adherant> adherants = findAll();
-        for (Adherant adherant : adherants) {
-            if (adherant.getNumeroAdherant() == numero_adherant) {
-                return adherant; // Retourne l'adhérent correspondant au numéro
-            }
-        }
-        return null; // Aucun adhérent trouvé avec ce numéro
+    public Adherant getAdherantByNumero(int numeroAdherant) {
+        return adherantRepository.findAll().stream()
+            .filter(a -> a.getNumeroAdherant() == numeroAdherant)
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Aucun adhérant avec le numéro " + numeroAdherant + " trouvé."));
     }
 
     public Adherant authenticate(int numeroAdherant, String motDePasse) {
@@ -69,4 +67,5 @@ public class AdherantService {
 
         return false;
     }
+
 }
