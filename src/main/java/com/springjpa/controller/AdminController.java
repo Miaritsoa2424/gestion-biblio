@@ -14,7 +14,7 @@ import com.springjpa.service.AdminService;
 
 import jakarta.servlet.http.HttpSession;
 
-@RequestMapping("Admin")
+@RequestMapping("admin")
 @Controller
 public class AdminController {
     @Autowired
