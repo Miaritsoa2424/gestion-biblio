@@ -160,7 +160,7 @@ public class PretController {
         
         try {
             Pret pret = pretService.findById(idPret);
-            if (pret != null && retourService.findRetourByIdPret(idPret).equals(null)) {
+            if (pret != null && retourService.findRetourByIdPret(idPret) == null) {
                 Retour retour = new Retour();
                 retour.setPret(pret);
                 retour.setDateRetour(UtilService.toDateTimeWithCurrentTime(dateRetour));
@@ -170,7 +170,7 @@ public class PretController {
                 redirectAttributes.addFlashAttribute("error", "Prêt non trouvé.");
             }
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'enregistrement du retour.");
+            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'enregistrement du retour:"+e.getMessage());
         }
         
         return "redirect:/pret";

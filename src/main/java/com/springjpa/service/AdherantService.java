@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.springjpa.entity.Adherant;
 import com.springjpa.entity.Inscription;
-import com.springjpa.entity.Profil;
 import com.springjpa.repository.AdherantRepository;
 import com.springjpa.repository.InscriptionRepository;
 

@@ -40,9 +40,6 @@ public class ProlongementService {
     @Autowired
     private StatutProlongementService statutProlongementService;
 
-    @Autowired
-    private TypePretService typePretService;
-
     public Prolongement findById(Integer id){
         return prolongementRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("Aucun prolongement trouvé avec l'ID : " + id));
