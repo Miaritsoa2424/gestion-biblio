@@ -1,10 +1,12 @@
 package com.springjpa.controller;
 
 import com.springjpa.entity.Adherant;
+import com.springjpa.entity.Exemplaire;
 import com.springjpa.entity.FinPret;
 import com.springjpa.entity.Pret;
 import com.springjpa.entity.Retour;
 import com.springjpa.service.AdherantService;
+import com.springjpa.service.ExemplaireService;
 import com.springjpa.service.FinPretService;
 import com.springjpa.service.LivreService;
 import com.springjpa.service.PenaliteService;
@@ -52,6 +54,10 @@ public class PretController {
 
     @Autowired
     private RetourService retourService;
+
+    @Autowired
+    private ExemplaireService exemplaireService;
+
 
     @GetMapping("/")
     public String index() {
