@@ -110,3 +110,8 @@ INSERT INTO categorie_livre (id_livre, id_categorie) VALUES (5, 2);
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (1, 1, 5);
 INSERT INTO quota_type_pret (id_profil, id_type_pret, quota) VALUES (2, 1, 2);
 
+INSERT INTO statut_reservation (id_statut, nom_statut) VALUES
+(1, 'Validée'),
+(2, 'Refusée');
+
+

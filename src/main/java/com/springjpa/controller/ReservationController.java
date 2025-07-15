@@ -44,14 +44,14 @@ public class ReservationController {
                                 @RequestParam("date") LocalDate date,
                                 HttpSession session,
                                 RedirectAttributes redirectAttributes) {
-        try {
+        // try {
             Adherant adherant = (Adherant) session.getAttribute("adherant");
             LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(date);
             reservationService.reserverUnLivre(adherant.getIdAdherant(), id_livre, dateTime);
             redirectAttributes.addFlashAttribute("success", "Reservation reussi, passez au bibliotheque le ".concat(date.toString()));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre");
-        }
+        // } catch (Exception e) {
+        //     redirectAttributes.addFlashAttribute("error", "Echec lors de la reservation du livre:"+);
+        // }
         return "redirect:/livre/detail?id=" + id_livre;
     }
 

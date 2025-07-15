@@ -5,138 +5,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Détail du livre</title>
+    <!-- Bootstrap CSS + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f5f1;
             font-family: 'Georgia', serif;
             color: #2c3e50;
         }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 30px;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
-        .livre-titre {
-            border-bottom: 2px solid #e0d5c1;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-        .livre-titre h2 {
-            color: #34495e;
-            font-size: 2.2em;
-            margin: 0;
-        }
-        .livre-contenu {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-        }
         .synopsis {
             background: #fdfaf6;
-            padding: 25px;
+            padding: 20px;
+            border-left: 5px solid #e0d5c1;
             border-radius: 5px;
-            border-left: 4px solid #e0d5c1;
-        }
-        .synopsis h4 {
-            color: #945d32;
-            font-size: 1.4em;
-            margin-top: 0;
         }
         .details-grid {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
             border: 1px solid #e0d5c1;
-        }
-        .detail-item {
-            margin: 15px 0;
-            line-height: 1.6;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: white;
         }
         .detail-item strong {
             color: #945d32;
         }
-        .boutons {
-            margin-top: 30px;
-            display: flex;
-            gap: 15px;
-        }
-        .reserver-btn {
-            padding: 12px 25px;
-            background-color: #27ae60;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .reserver-btn:hover {
-            background-color: #219a52;
-        }
-        .retour-btn {
-            padding: 12px 25px;
-            background-color: #95a5a6;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .retour-btn:hover {
-            background-color: #7f8c8d;
-        }
-        .reservation-form {
-            margin-top: 20px;
-            padding: 20px;
-            background: #fdfaf6;
-            border-radius: 5px;
-            border: 1px solid #e0d5c1;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #945d32;
-            font-weight: bold;
-        }
-        .form-group input[type="date"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #e0d5c1;
-            border-radius: 4px;
-            font-family: inherit;
-        }
         .submit-btn {
-            padding: 12px 25px;
             background-color: #27ae60;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
         .submit-btn:hover {
             background-color: #219a52;
         }
+        .retour-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .retour-btn:hover {
+            background-color: #7f8c8d;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="livre-titre">
-            <h2>${livre.getTitre()}</h2>
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Bibliothèque</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/pret">Prêts</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">Livres</a></li>
+            </ul>
         </div>
-        <div class="livre-contenu">
-            <div>
-                <div class="synopsis">
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="mb-4 border-bottom pb-2">${livre.getTitre()}</h2>
+
+    <!-- Alertes -->
+    <c:if test="${not empty success}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${success}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ${error}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </c:if>
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Synopsis -->
+                <div class="synopsis mb-4">
                     <h4>Synopsis</h4>
                     <p>${livre.getSynopsis()}</p>
                 </div>
-                <div class="details-grid">
+
+                <!-- Détails -->
+                <div class="details-grid mb-4">
                     <p class="detail-item"><strong>Auteur:</strong> ${livre.getAuteur()}</p>
                     <p class="detail-item"><strong>Date de publication:</strong> ${livre.getAnneePublication()}</p>
                     <p class="detail-item"><strong>Nombre de pages:</strong> ${livre.getNbPage()}</p>
@@ -148,22 +99,28 @@
                         </c:forEach>
                     </p>
                 </div>
-                <div class="reservation-form">
-                    <h4>Réserver ce livre</h4>
-                    <form action="reserveBook" method="POST">
+
+                <!-- Formulaire de réservation -->
+                <div class="card bg-light p-4 mb-4">
+                    <h5 class="mb-3">Réserver ce livre</h5>
+                    <form action="/biblio-spring-1.0/reservation/reserveBook" method="POST">
                         <input type="hidden" name="livre" value="${livre.getIdLivre()}">
-                        <div class="form-group">
-                            <label for="dateReservation">Date de réservation souhaitée:</label>
-                            <input type="date" id="dateReservation" name="date" required>
+                        <div class="mb-3">
+                            <label for="dateReservation" class="form-label">Date de réservation souhaitée:</label>
+                            <input type="date" class="form-control" id="dateReservation" name="date" required>
                         </div>
-                        <button type="submit" class="submit-btn">Confirmer la réservation</button>
+                        <button type="submit" class="btn submit-btn"><i class="bi bi-bookmark-plus"></i> Réserver</button>
                     </form>
                 </div>
-                <div class="boutons">
-                    <a href="<c:url value='/livre'/>" class="retour-btn">Retour à la liste</a>
-                </div>
+
+                <!-- Bouton retour -->
+                <a href="<c:url value='/livre'/>" class="btn retour-btn"><i class="bi bi-arrow-left-circle"></i> Retour à la liste</a>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

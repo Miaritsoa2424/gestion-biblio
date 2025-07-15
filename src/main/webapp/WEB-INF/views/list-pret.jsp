@@ -7,6 +7,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Bibliothèque</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/pret">Prêts</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">Livres</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
     <div class="container mt-4">
         <h2>Liste des Prêts</h2>
         
@@ -58,13 +72,20 @@
                         <td>${pret.getExemplaire().getLivre().getTitre()}</td>
                         <td>${pret.getDateDebut()}</td>
                         <td>
-                            <button class="btn btn-sm btn-warning" onclick="openRetourModal(${pret.getIdPret()})">Retour</button>
-                            <form action="/biblio-spring-1.0/prolongement/demander-prolongement" method="post">
-                                <input type="hidden" name="idPret" value="${pret.getIdPret()}" />
-                                <input type="hidden" name="idAdherant" value="${pret.getAdherant().getIdAdherant()}" />
-                                <button type="submit" class="btn btn-sm btn-warning">Demander un prolongement</button>
-                            </form>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-success" onclick="openRetourModal(${pret.getIdPret()})">
+                                    <i class="bi bi-arrow-return-left"></i> Retour
+                                </button>
+                                <form action="${pageContext.request.contextPath}/prolongement/demander-prolongement" method="post" style="display:inline;">
+                                    <input type="hidden" name="idPret" value="${pret.getIdPret()}" />
+                                    <input type="hidden" name="idAdherant" value="${pret.getAdherant().getIdAdherant()}" />
+                                    <button type="submit" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-clock-history"></i> Prolonger
+                                    </button>
+                                </form>
+                            </div>
                         </td>
+
                     </tr>
                 </c:forEach>
             </tbody>
