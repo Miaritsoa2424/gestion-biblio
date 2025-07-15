@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion adherant</title>
+    <title>Connexion admin</title>
     <style>
         body {
             display: flex;
@@ -64,12 +64,12 @@
 </head>
 <body>
     <div class="login">
-        <form action="login" method="POST">
+        <form action="loginAdmin" method="POST">
             <fieldset>
-                <h1>Connexion en tant qu'administrateur</h1>
+                <h1>Connexion en tant qu'admin</h1>
 
                 <label for="nom">Numéro adhérant :</label>
-                <input type="text" name="numeroAdherant" id="nom" placeholder="Ex: 1">
+                <input type="text" name="nom" id="nom" placeholder="Ex: Pierre">
 
                 <label for="mdp">Mot de passe :</label>
                 <input type="password" name="motDePasse" id="mdp" placeholder="************************">
