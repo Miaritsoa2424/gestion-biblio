@@ -9,18 +9,18 @@
 <body>
 
 <!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<%-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Bibliothèque</a>
+        <a class="navbar-brand" href="livre/">Bibliothèque</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="/pret">Prêts</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">Livres</a></li>
+                <li class="nav-item"><a class="nav-link" href="pret">Prêts</a></li>
+                <li class="nav-item"><a class="nav-link" href="prolongement/prolongement-list">Prolongements</a></li>
             </ul>
         </div>
     </div>
-</nav>
+</nav> --%>
     <div class="container mt-4">
         <h2>Liste des Prêts</h2>
         
