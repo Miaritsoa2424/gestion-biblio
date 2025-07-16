@@ -77,10 +77,10 @@
         </div>
 
         <!-- Date fin -->
-        <div class="col-md-6">
+        <%-- <div class="col-md-6">
             <label for="dateFin" class="form-label">Date fin de prêt</label>
             <input type="date" class="form-control" id="dateFin" name="dateFin" required>
-        </div>
+        </div> --%>
 
         <!-- Bouton -->
         <div class="col-12">

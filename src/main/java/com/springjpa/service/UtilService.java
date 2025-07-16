@@ -18,4 +18,11 @@ public class UtilService {
     public static LocalDateTime ajouterJours(LocalDateTime date, int nbJours) {
         return date.plusDays(nbJours);
     }
+
+    public static boolean estLeMemeJour(LocalDateTime dateTime, LocalDate date) {
+        if (dateTime.toLocalDate().equals(date)) {
+            return true;
+        }
+        return false;
+    }
 }

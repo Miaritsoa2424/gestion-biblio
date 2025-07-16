@@ -17,19 +17,30 @@ public class Profil {
     @Column(name = "nom_profil", nullable = false, length = 50)
     private String nomProfil;
     
-    @Column(name = "quota_pret")
-    private Integer quotaPret;
+    // @Column(name = "quota_pret")
+    // private Integer quotaPret;
     
     @Column(name = "quota_reservation")
     private Integer quotaReservation;
+
+    @Column(name = "quota_penalite")
+    private Integer quotaPenalite;
     
+    public Integer getQuotaPenalite() {
+        return quotaPenalite;
+    }
+
+    public void setQuotaPenalite(Integer quotaPenalite) {
+        this.quotaPenalite = quotaPenalite;
+    }
+
     // Constructeurs
     public Profil() {}
     
-    public Profil(Integer idProfil, String nomProfil, Integer quotaPret, Integer quotaReservation) {
+    public Profil(Integer idProfil, String nomProfil, Integer quotaReservation) {
         this.idProfil = idProfil;
         this.nomProfil = nomProfil;
-        this.quotaPret = quotaPret;
+        // this.quotaPret = quotaPret;
         this.quotaReservation = quotaReservation;
     }
     
@@ -50,13 +61,13 @@ public class Profil {
         this.nomProfil = nomProfil;
     }
     
-    public Integer getQuotaPret() {
-        return quotaPret;
-    }
+    // public Integer getQuotaPret() {
+    //     return quotaPret;
+    // }
     
-    public void setQuotaPret(Integer quotaPret) {
-        this.quotaPret = quotaPret;
-    }
+    // public void setQuotaPret(Integer quotaPret) {
+    //     this.quotaPret = quotaPret;
+    // }
     
     public Integer getQuotaReservation() {
         return quotaReservation;
