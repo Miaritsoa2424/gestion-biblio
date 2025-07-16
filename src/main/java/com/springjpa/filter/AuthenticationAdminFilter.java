@@ -14,7 +14,7 @@ public class AuthenticationAdminFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         boolean isLoggedIn = (session != null && session.getAttribute("admin") != null);
-        String loginURI = httpRequest.getContextPath() + "/Admin/login";
+        String loginURI = httpRequest.getContextPath() + "/admin/login";
 
         if (isLoggedIn) {
             chain.doFilter(request, response);

@@ -5,9 +5,6 @@ import com.springjpa.entity.Penalite;
 import com.springjpa.entity.Pret;
 import com.springjpa.entity.Retour;
 import com.springjpa.repository.RetourRepository;
-
-import jakarta.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,8 +35,7 @@ public class RetourService {
     public Retour findById(Integer id) { return retourRepository.findById(id).orElse(null); }
     public Retour findRetourByIdPret(Integer id) {return retourRepository.findRetourByPret(id);}
 
-    @Transactional
-    public void retournerPret(Integer idPret,LocalDate dateRetour) throws Exception {
+    public String retournerPret(Integer idPret,LocalDate dateRetour) throws Exception {
         
         try {
             Pret pret = pretService.findById(idPret);
@@ -51,8 +47,21 @@ public class RetourService {
                 LocalDateTime dateTime = UtilService.toDateTimeWithCurrentTime(dateRetour);
 
                 FinPret finPret = pretService.findFinPret(pret);
+                Penalite penalite2 = null;
 
                 if (dateTime.isAfter(finPret.getDateFin())) {
+                    List<Penalite> penalites = penaliteService.findByAdherantId(pret.getAdherant().getIdAdherant());
+                        for (Penalite penalite : penalites) {
+                            if (dateTime.isAfter(penalite.getDatePenalite()) && dateTime.isBefore(UtilService.ajouterJours(penalite.getDatePenalite(), penalite.getDuree()))) {
+                                long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
+                                penalite2 = new Penalite();
+                                penalite2.setAdherant(pret.getAdherant());
+                                penalite2.setDuree((int) joursDeRetard);
+                                penalite2.setDatePenalite(UtilService.ajouterJours(penalite.getDatePenalite(), penalite.getDuree()));
+                                penaliteService.save(penalite2);
+                                return "redirect:/pret";
+                            }
+                        }
                     long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
                     Penalite penalite = new Penalite();
                     penalite.setAdherant(pret.getAdherant());
@@ -66,6 +75,8 @@ public class RetourService {
             }
         } catch (Exception e) {
             throw e;
-        }        
+        }
+        
+        return "redirect:/pret";
     }
 }
