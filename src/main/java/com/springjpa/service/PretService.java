@@ -38,6 +38,8 @@ public class PretService {
     private FinPretService finPretService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private JoursFerieService joursFerieService;
 
     public Pret findById(Integer id) {
         return pretRepository.findById(id).get();
@@ -128,6 +130,9 @@ public class PretService {
         save(pret);
 
         FinPret finPret = new FinPret();
+        if (joursFerieService.estJourFerie(dateTimeFin)) {
+            dateTimeFin = UtilService.ajouterJours(dateTimeFin, 1);
+        }
         finPret.setDateFin(dateTimeFin);
         finPret.setPret(pret);
         finPretService.save(finPret);

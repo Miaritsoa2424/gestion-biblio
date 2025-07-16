@@ -8,9 +8,11 @@ import com.springjpa.entity.Retour;
 import com.springjpa.service.AdherantService;
 import com.springjpa.service.ExemplaireService;
 import com.springjpa.service.FinPretService;
+import com.springjpa.service.JoursFerieService;
 import com.springjpa.service.LivreService;
 import com.springjpa.service.PenaliteService;
 import com.springjpa.service.PretService;
+import com.springjpa.service.ProfilService;
 import com.springjpa.service.QuotaTypePretService;
 import com.springjpa.service.RetourService;
 import com.springjpa.service.TypePretService;
@@ -58,6 +60,12 @@ public class PretController {
     @Autowired
     private ExemplaireService exemplaireService;
 
+    @Autowired
+    private ProfilService profilService;
+
+    @Autowired
+    private JoursFerieService joursFerieService;
+
 
     @GetMapping("/")
     public String index() {
@@ -74,15 +82,16 @@ public class PretController {
     @PostMapping("/preter")
     public String preterLivre(@RequestParam("adherent") int adherantId,
             @RequestParam("livre") int id_livre,
-            @RequestParam("dateFin") LocalDate dateFinLocal,
+            // @RequestParam("dateFin") LocalDate dateFinLocal,
             @RequestParam("dateDeb") LocalDate dateDebutLocal,
             @RequestParam("typePret") int typePret,
             Model model,
             RedirectAttributes redirectAttributes) {
 
         LocalDateTime dateTimeDebut = UtilService.toDateTimeWithCurrentTime(dateDebutLocal);
-        LocalDateTime dateTimeFin = UtilService.toDateTimeWithCurrentTime(dateFinLocal);
+        
         Adherant adherant = adherantService.getAdherantByNumero(adherantId);
+        LocalDateTime dateTimeFin = UtilService.ajouterJours(dateTimeDebut, profilService.getDureePret(adherant.getProfil().getIdProfil()));
 
         boolean depasseQuota = quotaTypePretService.adherantDepasseQuota(
                 adherant.getIdAdherant(),
@@ -117,6 +126,9 @@ public class PretController {
             pretEffectue.setTypePret(typePretService.findById(typePret));
             pretService.save(pretEffectue);
             FinPret finPret = new FinPret();
+            if (joursFerieService.estJourFerie(dateTimeFin)) {
+                dateTimeFin = UtilService.ajouterJours(dateTimeFin, 1);
+            }
             finPret.setDateFin(dateTimeFin);
             finPret.setPret(pretEffectue);
             finPretService.save(finPret);

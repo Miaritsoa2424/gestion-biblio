@@ -29,6 +29,9 @@ public class RetourService {
     @Autowired
     private PenaliteService penaliteService;
 
+    @Autowired
+    private PenaliteQuotaService penaliteQuotaService;
+
     public List<Retour> findAll() { return retourRepository.findAll(); }
     public Retour save(Retour retour) { return retourRepository.save(retour); }
     public void deleteById(Integer id) { retourRepository.deleteById(id); }
@@ -53,19 +56,21 @@ public class RetourService {
                     List<Penalite> penalites = penaliteService.findByAdherantId(pret.getAdherant().getIdAdherant());
                         for (Penalite penalite : penalites) {
                             if (dateTime.isAfter(penalite.getDatePenalite()) && dateTime.isBefore(UtilService.ajouterJours(penalite.getDatePenalite(), penalite.getDuree()))) {
-                                long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
+                                // long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
+                                int joursDeRetard = penaliteQuotaService.findIdProfil(pret.getAdherant().getProfil().getIdProfil()).getDuree();
                                 penalite2 = new Penalite();
                                 penalite2.setAdherant(pret.getAdherant());
-                                penalite2.setDuree((int) joursDeRetard);
+                                penalite2.setDuree(joursDeRetard);
                                 penalite2.setDatePenalite(UtilService.ajouterJours(penalite.getDatePenalite(), penalite.getDuree()));
                                 penaliteService.save(penalite2);
                                 return "redirect:/pret";
                             }
                         }
-                    long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
+                    // long joursDeRetard = ChronoUnit.DAYS.between(finPret.getDateFin(), dateTime);
                     Penalite penalite = new Penalite();
+                    int joursDeRetard = penaliteQuotaService.findIdProfil(pret.getAdherant().getProfil().getIdProfil()).getDuree();
                     penalite.setAdherant(pret.getAdherant());
-                    penalite.setDuree((int) joursDeRetard);
+                    penalite.setDuree(joursDeRetard);
                     penalite.setDatePenalite(dateTime);
 
                     penaliteService.save(penalite);
