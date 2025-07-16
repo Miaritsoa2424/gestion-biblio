@@ -46,10 +46,19 @@ public class PenaliteService {
         if (penalites.isEmpty()) {
             return false;
         }
-        Penalite lastpenalite = penalites.stream()
-            .sorted(Comparator.comparing(penalite -> penalite.getDatePenalite().plusDays(penalite.getDuree())))
-            .collect(Collectors.toList())
-            .get(0);
-        return lastpenalite.getDatePenalite().plusDays(lastpenalite.getDuree()).isAfter(date);
+        // Penalite lastpenalite = penalites.stream()
+        //     .sorted(Comparator.comparing(penalite -> penalite.getDatePenalite().plusDays(penalite.getDuree())))
+        //     .collect(Collectors.toList())
+        //     .get(0);
+
+        for (Penalite penalite2 : penalites) {
+            LocalDateTime dateDebutPenalite = penalite2.getDatePenalite();
+            LocalDateTime dateFinPenalite = UtilService.ajouterJours(dateDebutPenalite, penalite2.getDuree());
+            if (date.isAfter(dateDebutPenalite) && date.isBefore(dateFinPenalite)) {
+                return true;
+            }
+        }
+        // return lastpenalite.getDatePenalite().plusDays(lastpenalite.getDuree()).isAfter(date) && lastpenalite.getDatePenalite().isBefore(date);
+        return false;
     }
 }

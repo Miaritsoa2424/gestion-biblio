@@ -11,4 +11,7 @@ public interface QuotaTypePretRepository extends JpaRepository<QuotaTypePret, In
 
     @Query(value = "SELECT quota FROM quota_type_pret WHERE id_profil = :idProfil AND id_type_pret = :idTypePret", nativeQuery = true)
     Integer findQuota(@Param("idProfil") Integer idProfil, @Param("idTypePret") Integer idTypePret);
+
+
+    // SELECT COUNT(*) FROM pret p WHERE p.id_adherant = 1 AND p.id_type_pret = 1 AND p.id_pret NOT IN (SELECT r.id_pret FROM retour r)
 }
